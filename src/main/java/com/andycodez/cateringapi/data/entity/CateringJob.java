@@ -20,6 +20,16 @@ public class CateringJob {
     public CateringJob() {
     }
 
+    public CateringJob(Long id, String customerName, String phoneNumber, String email, String menu, int noOfGuests, Status status) {
+        this.id = id;
+        this.customerName = customerName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.menu = menu;
+        this.noOfGuests = noOfGuests;
+        this.status = status;
+    }
+
     public Long getId() {
         return id;
     }
