@@ -3,6 +3,7 @@ package com.andycodez.cateringapi.service;
 import com.andycodez.cateringapi.data.entity.CateringJob;
 import com.andycodez.cateringapi.data.entity.Status;
 import com.andycodez.cateringapi.data.repository.CateringJobRepository;
+import org.assertj.core.api.BDDAssertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -40,5 +41,17 @@ class CateringJobServiceTest {
 
         then(this.cateringJobService.getAllCateringJobs().size()).equals(2);
         then(this.cateringJobService.getAllCateringJobs()).equals(cateringJobList);
+    }
+
+    @Test
+    void findCateringJobByStatus_shouldReturnAllJobsWithSpecifiedStatus() {
+        List<CateringJob> cateringJobs = new ArrayList<>();
+        CateringJob cancelledCateringJob = new CateringJob(null, "John Does", "0712345679",
+                "johndoe2@example.com", "{\"someMenu\":\"someMenuItem\"}", 10, Status.CANCELED);
+        cateringJobs.add(cancelledCateringJob);
+
+        given(this.cateringJobRepository.findCateringJobByStatus(Status.CANCELED)).willReturn(cateringJobs);
+
+        BDDAssertions.then(this.cateringJobService.findCateringJobsByStatus(Status.CANCELED).get(0)).isEqualTo(cancelledCateringJob);
     }
 }
