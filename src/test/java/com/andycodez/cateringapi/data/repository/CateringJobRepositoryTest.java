@@ -42,4 +42,24 @@ class CateringJobRepositoryTest {
         BDDAssertions.then(this.cateringJobRepository.findAll().size()).isEqualTo(2);
         BDDAssertions.then(this.cateringJobRepository.findAll()).isEqualTo(cateringJobs);
     }
+
+    @Test
+    void findCateringJobByStatus_shouldReturnAllJobsWithSpecifiedStatus() {
+        CateringJob inProgressCateringJob = new CateringJob(null, "John Doe", "0712345678",
+                "johndoe@example.com", "{\"someMenu\":\"someMenuItem\"}", 20, Status.IN_PROGRESS);
+        CateringJob cancelledCateringJob1 = new CateringJob(null, "John Does", "0712345679",
+                "johndoe2@example.com", "{\"someMenu\":\"someMenuItem\"}", 10, Status.CANCELED);
+        CateringJob cancelledCateringJob2 = new CateringJob(null, "John Does", "0712345679",
+                "johndoe2@example.com", "{\"someMenu\":\"someMenuItem\"}", 10, Status.CANCELED);
+
+        List<CateringJob> cateringJobs = new ArrayList<>();
+        cateringJobs.add(inProgressCateringJob);
+        cateringJobs.add(cancelledCateringJob1);
+        cateringJobs.add(cancelledCateringJob2);
+
+        this.cateringJobRepository.saveAll(cateringJobs);
+
+        BDDAssertions.then(this.cateringJobRepository.findCateringJobByStatus(Status.IN_PROGRESS).size()).isEqualTo(1);
+        BDDAssertions.then(this.cateringJobRepository.findCateringJobByStatus(Status.CANCELED).size()).isEqualTo(2);
+    }
 }
