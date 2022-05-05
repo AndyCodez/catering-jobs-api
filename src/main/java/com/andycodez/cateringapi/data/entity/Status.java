@@ -3,6 +3,6 @@ package com.andycodez.cateringapi.data.entity;
 public enum Status {
     NOT_STARTED,
     COMPLETD,
-    CANCELED,
+    CANCELLED,
     IN_PROGRESS
 }

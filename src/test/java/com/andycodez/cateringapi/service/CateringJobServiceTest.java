@@ -12,7 +12,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
@@ -32,7 +31,7 @@ class CateringJobServiceTest {
         CateringJob cateringJob1 = new CateringJob(1L, "John Doe", "0712345678",
                 "johndoe@example.com", "{\"someMenu\":\"someMenuItem\"}", 20, Status.IN_PROGRESS);
         CateringJob cateringJob2 = new CateringJob(2L, "John Does", "0712345679",
-                "johndoe2@example.com", "{\"someMenu\":\"someMenuItem\"}", 10, Status.CANCELED);
+                "johndoe2@example.com", "{\"someMenu\":\"someMenuItem\"}", 10, Status.CANCELLED);
 
         cateringJobList.add(cateringJob1);
         cateringJobList.add(cateringJob2);
@@ -47,11 +46,11 @@ class CateringJobServiceTest {
     void findCateringJobByStatus_shouldReturnAllJobsWithSpecifiedStatus() {
         List<CateringJob> cateringJobs = new ArrayList<>();
         CateringJob cancelledCateringJob = new CateringJob(null, "John Does", "0712345679",
-                "johndoe2@example.com", "{\"someMenu\":\"someMenuItem\"}", 10, Status.CANCELED);
+                "johndoe2@example.com", "{\"someMenu\":\"someMenuItem\"}", 10, Status.CANCELLED);
         cateringJobs.add(cancelledCateringJob);
 
-        given(this.cateringJobRepository.findCateringJobByStatus(Status.CANCELED)).willReturn(cateringJobs);
+        given(this.cateringJobRepository.findCateringJobByStatus(Status.CANCELLED)).willReturn(cateringJobs);
 
-        BDDAssertions.then(this.cateringJobService.findCateringJobsByStatus(Status.CANCELED).get(0)).isEqualTo(cancelledCateringJob);
+        BDDAssertions.then(this.cateringJobService.findCateringJobsByStatus(Status.CANCELLED).get(0)).isEqualTo(cancelledCateringJob);
     }
 }

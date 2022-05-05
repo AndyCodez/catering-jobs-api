@@ -3,7 +3,6 @@ package com.andycodez.cateringapi.controller;
 import com.andycodez.cateringapi.data.entity.CateringJob;
 import com.andycodez.cateringapi.data.entity.Status;
 import com.andycodez.cateringapi.data.repository.CateringJobRepository;
-import com.andycodez.cateringapi.service.CateringJobService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -46,7 +45,7 @@ public class CateringJobControllerIntegrationTest {
         CateringJob cateringJob1 = new CateringJob(null, "John Doe", "0712345678",
                 "johndoe@example.com", "{\"someMenu\":\"someMenuItem\"}", 20, Status.IN_PROGRESS);
         CateringJob cateringJob2 = new CateringJob(null, "John Does", "0712345679",
-                "johndoe2@example.com", "{\"someMenu\":\"someMenuItem\"}", 10, Status.CANCELED);
+                "johndoe2@example.com", "{\"someMenu\":\"someMenuItem\"}", 10, Status.CANCELLED);
 
         List<CateringJob> cateringJobs = Arrays.asList(cateringJob1, cateringJob2);
         this.cateringJobRepository.saveAll(cateringJobs);
