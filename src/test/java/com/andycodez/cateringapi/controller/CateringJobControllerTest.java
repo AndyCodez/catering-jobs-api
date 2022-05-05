@@ -57,4 +57,25 @@ class CateringJobControllerTest {
                 .andExpect(jsonPath("[0].status").value("IN_PROGRESS"))
         ;
     }
+
+    @Test
+    void canGetJobsByStatus() throws Exception {
+        List<CateringJob> cancelledCateringJobs = new ArrayList<>();
+        CateringJob cancelledCateringJob1 = new CateringJob(null, "John Does", "0712345679",
+                "johndoe2@example.com", "{\"someMenu\":\"someMenuItem\"}", 10, Status.CANCELED);
+        CateringJob cancelledCateringJob2 = new CateringJob(null, "John Does", "0712345679",
+                "johndoe2@example.com", "{\"someMenu\":\"someMenuItem\"}", 10, Status.CANCELED);
+
+        cancelledCateringJobs.add(cancelledCateringJob1);
+        cancelledCateringJobs.add(cancelledCateringJob2);
+
+        given(this.cateringJobService.findCateringJobsByStatus(Status.CANCELED)).willReturn(cancelledCateringJobs);
+
+        RequestBuilder request = MockMvcRequestBuilders.get("/catering-jobs?status=CANCELED");
+
+        mockMvc.perform(request)
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("[0].status").value("CANCELED"))
+                .andExpect(jsonPath("[1].status").value("CANCELED"));
+    }
 }
