@@ -13,7 +13,7 @@ class ScheduledTasksTest {
     private ScheduledTasks scheduledTasks;
 
     @Test
-    void whenWait100Seconds_thenScheduledreportOrderStatsIsCalledAtLeast10Times() throws InterruptedException {
+    void whenWait30Seconds_thenScheduledreportOrderStatsIsCalledAtLeast3Times() throws InterruptedException {
         Thread.sleep(30_000);
         then(scheduledTasks.countCalls()).isEqualTo(3);
     }
