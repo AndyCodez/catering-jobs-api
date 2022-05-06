@@ -14,6 +14,7 @@ class ScheduledTasksTest {
 
     @Test
     void whenWait30Seconds_thenScheduledreportOrderStatsIsCalledAtLeast3Times() throws InterruptedException {
+        // TODO: Improve this test
         Thread.sleep(30_000);
         then(scheduledTasks.countCalls()).isEqualTo(3);
     }
